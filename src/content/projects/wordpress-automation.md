@@ -1,6 +1,7 @@
 ---
 title: "WordPress デプロイ自動化システム"
 description: "複数のWordPressサイトのデプロイを自動化するCI/CDパイプライン。GitHub Actions によるビルド・テスト・デプロイの自動化を実現。"
+period: "2022.01 - 2023.05"
 techStack: ["WordPress", "GitHub Actions", "Docker", "PHP", "Shell Script"]
 github: "https://github.com/example/wp-deploy"
 featured: false

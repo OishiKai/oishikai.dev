@@ -1,6 +1,7 @@
 ---
 title: "FitTrack - フィットネストラッキングアプリ"
 description: "Flutter で開発したクロスプラットフォームのフィットネスアプリ。ワークアウト記録、カロリー計算、プログレスチャートを搭載。Firebase をバックエンドに使用。"
+period: "2024.04 - 2025.03"
 techStack: ["Flutter", "Dart", "Firebase", "Cloud Functions"]
 link: "https://example.com/fittrack"
 github: "https://github.com/example/fittrack"

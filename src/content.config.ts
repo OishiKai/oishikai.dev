@@ -20,6 +20,7 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    period: z.string(),
     techStack: z.array(z.string()).default([]),
     link: z.string().optional(),
     github: z.string().optional(),

@@ -76,7 +76,9 @@ const featuredProjects = (await getCollection('projects'))
           <ProjectCard
             title={project.data.title}
             description={project.data.description}
+            period={project.data.period}
             techStack={project.data.techStack}
+            slug={project.id}
             link={project.data.link}
             github={project.data.github}
             image={project.data.image}

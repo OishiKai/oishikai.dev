@@ -1,6 +1,7 @@
 ---
 title: "ECサイトリニューアル"
 description: "既存のECサイトのモバイルアプリ化プロジェクト。iOS（Swift/SwiftUI）で開発し、AWS Cognito による認証、CloudFront によるアセット配信を実装。"
+period: "2023.06 - 2024.03"
 techStack: ["Swift", "SwiftUI", "AWS Cognito", "CloudFront", "REST API"]
 featured: true
 order: 2
