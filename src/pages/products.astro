@@ -145,24 +145,46 @@ const milestones = [
   function initContactForm() {
     const form = document.getElementById('contact-form') as HTMLFormElement | null;
     const status = document.getElementById('form-status');
-    if (!form || !status) return;
+    const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    if (!form || !status || !submitBtn) return;
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中...';
+      status.className = 'hidden';
+
       const data = new FormData(form);
-      const name = data.get('name');
-      const email = data.get('email');
-      const category = data.get('category');
-      const message = data.get('message');
+      const payload = {
+        name: data.get('name'),
+        email: data.get('email'),
+        category: data.get('category'),
+        message: data.get('message'),
+      };
 
-      const subject = encodeURIComponent(`[PC Builder] ${category}`);
-      const body = encodeURIComponent(
-        `名前: ${name}\nメール: ${email}\nカテゴリ: ${category}\n\n${message}`
-      );
-      window.location.href = `mailto:contacts@oishikai.dev?subject=${subject}&body=${body}`;
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await res.json();
 
-      status.textContent = 'メールクライアントが開きます。送信をお願いします。';
-      status.className = 'text-sm text-primary-600 dark:text-primary-400';
+        if (res.ok) {
+          status.textContent = '送信しました。お問い合わせありがとうございます。';
+          status.className = 'text-sm text-green-600 dark:text-green-400';
+          form.reset();
+        } else {
+          status.textContent = result.error || '送信に失敗しました。';
+          status.className = 'text-sm text-red-600 dark:text-red-400';
+        }
+      } catch {
+        status.textContent = 'ネットワークエラーが発生しました。';
+        status.className = 'text-sm text-red-600 dark:text-red-400';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '送信する';
+      }
     });
   }
 
