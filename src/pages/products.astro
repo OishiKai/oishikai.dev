@@ -159,7 +159,7 @@ const milestones = [
       const body = encodeURIComponent(
         `名前: ${name}\nメール: ${email}\nカテゴリ: ${category}\n\n${message}`
       );
-      window.location.href = `mailto:contact@oishikai.dev?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:contacts@oishikai.dev?subject=${subject}&body=${body}`;
 
       status.textContent = 'メールクライアントが開きます。送信をお願いします。';
       status.className = 'text-sm text-primary-600 dark:text-primary-400';
