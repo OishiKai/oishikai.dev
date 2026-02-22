@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE_DESCRIPTION } from '@/lib/utils';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const featuredProjects = (await getCollection('projects'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="oishikai.dev" description={SITE_DESCRIPTION}>
+  <!-- Hero -->
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:py-24">
+    <p class="text-sm font-medium text-primary-600 dark:text-primary-400">Hello, I'm</p>
+    <h1 class="mt-2 text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl">
+      Kai Oishi
+    </h1>
+    <p class="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+      フロントエンドエンジニア。Flutter / iOS（Swift/SwiftUI）でのモバイルアプリ開発を中心に、Firebase・AWS を活用したバックエンド連携まで幅広く対応しています。
+    </p>
+    <div class="mt-6 flex gap-3">
+      <a
+        href="/about"
+        class="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-700"
+      >
+        About Me
+      </a>
+      <a
+        href="/blog"
+        class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+      >
+        Read Blog
+      </a>
+    </div>
+  </section>
+
+  <!-- Latest Posts -->
+  <section class="mx-auto max-w-4xl px-4 pb-16">
+    <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Latest Posts</h2>
+      <a href="/blog" class="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
+        View all &rarr;
+      </a>
+    </div>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {allPosts.map((post) => (
+        <BlogCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          tags={post.data.tags}
+          slug={post.id}
+          heroImage={post.data.heroImage}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  {featuredProjects.length > 0 && (
+    <section class="mx-auto max-w-4xl px-4 pb-16">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Featured Projects</h2>
+        <a href="/projects" class="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
+          View all &rarr;
+        </a>
+      </div>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2">
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            techStack={project.data.techStack}
+            link={project.data.link}
+            github={project.data.github}
+            image={project.data.image}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</BaseLayout>

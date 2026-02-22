@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Projects" description="個人開発・業務実績の紹介">
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Projects</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-400">個人開発・業務で携わったプロジェクトの紹介です。</p>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2">
+      {projects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          techStack={project.data.techStack}
+          link={project.data.link}
+          github={project.data.github}
+          image={project.data.image}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

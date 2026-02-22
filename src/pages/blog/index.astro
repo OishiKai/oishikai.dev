@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import Pagination from '@/components/Pagination.astro';
+import { getCollection } from 'astro:content';
+import { POSTS_PER_PAGE } from '@/lib/utils';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+const posts = allPosts.slice(0, POSTS_PER_PAGE);
+
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
+---
+
+<BaseLayout title="Blog" description="技術ブログ記事一覧">
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Blog</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-400">技術に関する記事を発信しています。</p>
+
+    <!-- Tags -->
+    {allTags.length > 0 && (
+      <div class="mt-6 flex flex-wrap gap-2">
+        {allTags.map((tag) => (
+          <a
+            href={`/tags/${tag}`}
+            class="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          >
+            {tag}
+          </a>
+        ))}
+      </div>
+    )}
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <BlogCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          tags={post.data.tags}
+          slug={post.id}
+          heroImage={post.data.heroImage}
+        />
+      ))}
+    </div>
+
+    <Pagination currentPage={1} totalPages={totalPages} baseUrl="/blog" />
+  </div>
+</BaseLayout>
