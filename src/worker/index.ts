@@ -52,7 +52,7 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     const msg = createMimeMessage();
     msg.setSender({ name: 'oishikai.dev Contact', addr: 'noreply@oishikai.dev' });
     msg.setRecipient('contacts@oishikai.dev');
-    msg.setHeader('Reply-To', { addr: body.email, name: body.name });
+    msg.setHeader('Reply-To', `${body.name} <${body.email}>`);
     msg.setSubject(`[${categoryLabel}] ${body.name} さんからのお問い合わせ`);
     msg.addMessage({
       contentType: 'text/plain',
