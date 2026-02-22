@@ -13,11 +13,7 @@ export default defineConfig({
   },
   integrations: [
     expressiveCode({
-      themes: ['github-dark', 'github-light'],
-      themeCssSelector: (theme) => {
-        if (theme.name === 'github-dark') return '.dark';
-        return ':root:not(.dark)';
-      },
+      themes: ['github-dark'],
       styleOverrides: {
         borderRadius: '0.5rem',
         codePaddingInline: '1.5rem',
