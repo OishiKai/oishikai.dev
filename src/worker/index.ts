@@ -5,6 +5,7 @@ interface Env {
   SEND_EMAIL: {
     send(message: EmailMessage): Promise<void>;
   };
+  CONTACT_EMAIL: string;
   ASSETS: Fetcher;
 }
 
@@ -48,11 +49,11 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
       other: 'その他',
     };
     const categoryLabel = categoryLabels[body.category] || body.category;
+    const destination = env.CONTACT_EMAIL;
 
     const msg = createMimeMessage();
     msg.setSender({ name: 'oishikai.dev Contact', addr: 'noreply@oishikai.dev' });
-    msg.setRecipient('contacts@oishikai.dev');
-    msg.setRecipient({ addr: body.email, name: body.name, type: 'Reply-To' });
+    msg.setRecipient(destination);
     msg.setSubject(`[${categoryLabel}] ${body.name} さんからのお問い合わせ`);
     msg.addMessage({
       contentType: 'text/plain',
@@ -68,7 +69,7 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 
     const emailMessage = new EmailMessage(
       'noreply@oishikai.dev',
-      'contacts@oishikai.dev',
+      destination,
       msg.asRaw(),
     );
     await env.SEND_EMAIL.send(emailMessage);

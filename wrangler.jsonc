@@ -10,10 +10,12 @@
   ],
   "send_email": [
     {
-      "name": "SEND_EMAIL",
-      "destination_address": "contacts@oishikai.dev"
+      "name": "SEND_EMAIL"
     }
   ],
+  "vars": {
+    "CONTACT_EMAIL": "kai.appdeveloper@gmail.com"
+  },
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"
