@@ -171,10 +171,9 @@ const milestones = [
         const result = await res.json();
 
         if (res.ok) {
-          form.classList.add('hidden');
           status.textContent = '送信しました。お問い合わせありがとうございます。';
           status.className = 'text-sm text-green-600 dark:text-green-400';
-          return;
+          form.reset();
         } else {
           status.textContent = result.error || '送信に失敗しました。';
           status.className = 'text-sm text-red-600 dark:text-red-400';
