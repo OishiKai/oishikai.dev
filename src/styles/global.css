@@ -63,7 +63,7 @@
   margin-bottom: 1.6em;
 }
 
-.prose code {
+.prose :not(pre) > code {
   font-size: 0.875em;
   background-color: #f1f5f9;
   padding: 0.2em 0.4em;
@@ -71,18 +71,9 @@
   font-weight: 500;
 }
 
-.prose pre {
-  overflow-x: auto;
-  border-radius: 0.5rem;
-  padding: 1rem 1.5rem;
+.prose .expressive-code {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-}
-
-.prose pre code {
-  background-color: transparent;
-  padding: 0;
-  font-weight: 400;
 }
 
 .prose img {
@@ -107,12 +98,5 @@
 .dark .prose a { color: var(--color-primary-400); }
 .dark .prose a:hover { color: var(--color-primary-300); }
 .dark .prose blockquote { color: var(--color-text-dark-secondary); }
-.dark .prose code { background-color: #1e293b; }
+.dark .prose :not(pre) > code { background-color: #1e293b; }
 .dark .prose hr { border-color: #334155; }
-
-/* Shiki dark mode */
-.dark .astro-code,
-.dark .astro-code span {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
-}

@@ -2,21 +2,28 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import expressiveCode from 'astro-expressive-code';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://oishikai.dev',
   output: 'static',
-  markdown: {
-    shikiConfig: {
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-    },
-  },
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [sitemap()],
+  integrations: [
+    expressiveCode({
+      themes: ['github-dark', 'github-light'],
+      themeCssSelector: (theme) => {
+        if (theme.name === 'github-dark') return '.dark';
+        return ':root:not(.dark)';
+      },
+      styleOverrides: {
+        borderRadius: '0.5rem',
+        codePaddingInline: '1.5rem',
+        codePaddingBlock: '1rem',
+      },
+    }),
+    sitemap(),
+  ],
 });
