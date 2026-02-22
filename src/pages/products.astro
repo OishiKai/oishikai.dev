@@ -1,0 +1,171 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const milestones = [
+  { version: 'v1.0', date: '2023.07.31', description: '初版リリース。PCパーツのカテゴリ別検索・選択機能を搭載。' },
+  { version: 'v2.0.0', date: '2023.09.06', description: 'UI大幅リニューアル、ダークモード対応。' },
+  { version: 'v2.1.0', date: '2023.09.20', description: 'CPU検索不具合修正、おすすめ検索条件提案機能を追加。' },
+  { version: 'v2.1.1', date: '2024.11.24', description: 'パーツ情報の文字化けに対応。' },
+];
+---
+
+<BaseLayout title="Products" description="リリースしているアプリの紹介">
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Products</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-400">リリースしているアプリの紹介です。</p>
+
+    <!-- App Card -->
+    <section class="mt-10 rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-surface-dark-secondary sm:p-8">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-start">
+        <!-- App Icon -->
+        <div class="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 text-3xl font-bold text-white shadow-lg">
+          PC
+        </div>
+
+        <!-- App Info -->
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white">PC Builder - 自作PCアシスタント</h2>
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">iOS App &middot; 無料 &middot; 評価 4.3/5</p>
+          <p class="mt-3 text-gray-600 dark:text-gray-400">
+            PCパーツをカテゴリ別に検索・選択して自作PCを見積もりできるアプリ。搭載チップやソケット形状での絞り込み検索、ダークモード、おすすめ検索条件の提案機能を搭載しています。
+          </p>
+
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            {['iOS', 'Swift', 'SwiftUI'].map((tech) => (
+              <span class="rounded-full bg-primary-50 px-2.5 py-0.5 text-xs font-medium text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div class="mt-5">
+            <a
+              href="https://apps.apple.com/jp/app/pc-builder-%E8%87%AA%E4%BD%9Cpc%E3%82%A2%E3%82%B7%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%88/id6455426079"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              App Store で見る
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Milestones -->
+    <section class="mt-12">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Milestones</h2>
+      <div class="relative mt-6 border-l-2 border-primary-200 dark:border-primary-800">
+        {milestones.slice().reverse().map((item, i) => (
+          <div class:list={['relative pl-6', i > 0 && 'mt-6']}>
+            <div class="absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-primary-500 bg-white dark:bg-surface-dark"></div>
+            <div class="flex items-center gap-2">
+              <span class="rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-semibold text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">
+                {item.version}
+              </span>
+              <span class="text-sm text-gray-500 dark:text-gray-400">{item.date}</span>
+            </div>
+            <p class="mt-1 text-gray-600 dark:text-gray-400">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="mt-12">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Contact</h2>
+      <p class="mt-2 text-gray-600 dark:text-gray-400">
+        アプリに関するお問い合わせ、不具合報告、機能リクエストはこちらからどうぞ。
+      </p>
+      <form
+        id="contact-form"
+        class="mt-6 space-y-4"
+      >
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">お名前</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">メールアドレス</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+          />
+        </div>
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">カテゴリ</label>
+          <select
+            id="category"
+            name="category"
+            class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+          >
+            <option value="bug">不具合報告</option>
+            <option value="feature">機能リクエスト</option>
+            <option value="question">質問</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">メッセージ</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+          ></textarea>
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="rounded-lg bg-primary-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-surface-dark"
+          >
+            送信する
+          </button>
+        </div>
+        <p id="form-status" class="hidden text-sm"></p>
+      </form>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const status = document.getElementById('form-status');
+    if (!form || !status) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = data.get('name');
+      const email = data.get('email');
+      const category = data.get('category');
+      const message = data.get('message');
+
+      const subject = encodeURIComponent(`[PC Builder] ${category}`);
+      const body = encodeURIComponent(
+        `名前: ${name}\nメール: ${email}\nカテゴリ: ${category}\n\n${message}`
+      );
+      window.location.href = `mailto:contact@oishikai.dev?subject=${subject}&body=${body}`;
+
+      status.textContent = 'メールクライアントが開きます。送信をお願いします。';
+      status.className = 'text-sm text-primary-600 dark:text-primary-400';
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:after-swap', initContactForm);
+</script>
