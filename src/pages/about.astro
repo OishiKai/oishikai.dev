@@ -76,9 +76,9 @@ const career = [
     <!-- Career -->
     <section class="mt-12">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Career</h2>
-      <div class="mt-6 space-y-8">
-        {career.map((item) => (
-          <div class="relative border-l-2 border-primary-200 pl-6 dark:border-primary-800">
+      <div class="relative mt-6 border-l-2 border-primary-200 dark:border-primary-800">
+        {career.map((item, i) => (
+          <div class:list={['relative pl-6', i > 0 && 'mt-8']}>
             <div class="absolute -left-[9px] top-1 h-4 w-4 rounded-full border-2 border-primary-500 bg-white dark:bg-surface-dark"></div>
             <p class="text-sm font-medium text-primary-600 dark:text-primary-400">{item.period}</p>
             <h3 class="mt-1 text-lg font-semibold text-gray-900 dark:text-white">{item.role}</h3>
