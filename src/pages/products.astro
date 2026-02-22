@@ -85,7 +85,20 @@ const milestones = [
         class="mt-6 space-y-4"
       >
         <div>
-          <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">お名前</label>
+          <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">カテゴリ</label>
+          <select
+            id="category"
+            name="category"
+            class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+          >
+            <option value="bug">不具合報告</option>
+            <option value="feature">機能リクエスト</option>
+            <option value="question">質問</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">ニックネーム</label>
           <input
             type="text"
             id="name"
@@ -105,19 +118,6 @@ const milestones = [
           />
         </div>
         <div>
-          <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">カテゴリ</label>
-          <select
-            id="category"
-            name="category"
-            class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
-          >
-            <option value="bug">不具合報告</option>
-            <option value="feature">機能リクエスト</option>
-            <option value="question">質問</option>
-            <option value="other">その他</option>
-          </select>
-        </div>
-        <div>
           <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">メッセージ</label>
           <textarea
             id="message"
@@ -130,9 +130,14 @@ const milestones = [
         <div>
           <button
             type="submit"
-            class="rounded-lg bg-primary-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-surface-dark"
+            id="submit-btn"
+            class="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-70 dark:focus:ring-offset-surface-dark"
           >
-            送信する
+            <svg id="submit-spinner" class="hidden h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span id="submit-text">送信する</span>
           </button>
         </div>
         <p id="form-status" class="hidden text-sm"></p>
@@ -145,13 +150,16 @@ const milestones = [
   function initContactForm() {
     const form = document.getElementById('contact-form') as HTMLFormElement | null;
     const status = document.getElementById('form-status');
-    const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
-    if (!form || !status || !submitBtn) return;
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+    const submitSpinner = document.getElementById('submit-spinner');
+    const submitText = document.getElementById('submit-text');
+    if (!form || !status || !submitBtn || !submitSpinner || !submitText) return;
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       submitBtn.disabled = true;
-      submitBtn.textContent = '送信中...';
+      submitSpinner.classList.remove('hidden');
+      submitText.textContent = '送信中...';
       status.className = 'hidden';
 
       const data = new FormData(form);
@@ -183,7 +191,8 @@ const milestones = [
         status.className = 'text-sm text-red-600 dark:text-red-400';
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = '送信する';
+        submitSpinner.classList.add('hidden');
+        submitText.textContent = '送信する';
       }
     });
   }
