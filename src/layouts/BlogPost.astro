@@ -18,8 +18,9 @@ const { title, description, pubDate, updatedDate, heroImage, tags, headings } = 
 ---
 
 <BaseLayout title={title} description={description} image={heroImage} type="article" publishedTime={pubDate.toISOString()}>
-  <article class="mx-auto max-w-4xl px-4 py-8">
-    <header class="mb-8">
+  <article class="py-8">
+    <!-- Header: centered with readable width -->
+    <header class="mx-auto mb-8 max-w-3xl px-4">
       <div class="mb-4 flex flex-wrap items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
         {updatedDate && (
@@ -49,17 +50,26 @@ const { title, description, pubDate, updatedDate, heroImage, tags, headings } = 
       <img
         src={heroImage}
         alt={title}
-        class="mb-8 w-full rounded-lg object-cover"
+        class="mx-auto mb-8 max-w-3xl rounded-lg object-cover px-4"
       />
     )}
 
-    <div class="flex flex-col gap-8 lg:flex-row">
-      <div class="hidden lg:block lg:w-64 lg:shrink-0">
+    <!-- Body: TOC on left side, content centered -->
+    <div class="relative mx-auto max-w-3xl px-4">
+      <!-- TOC: positioned outside the content area on the left -->
+      <aside class="hidden xl:block absolute right-full top-0 mr-8 w-56">
         <div class="sticky top-24">
           <TableOfContents headings={headings} />
         </div>
+      </aside>
+
+      <!-- TOC: inline for smaller screens -->
+      <div class="mb-8 xl:hidden">
+        <TableOfContents headings={headings} />
       </div>
-      <div class="prose min-w-0 max-w-none flex-1">
+
+      <!-- Main content -->
+      <div class="prose max-w-none">
         <slot />
       </div>
     </div>

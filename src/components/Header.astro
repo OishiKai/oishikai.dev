@@ -18,7 +18,7 @@ function isActive(href: string): boolean {
 ---
 
 <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-surface-dark/80">
-  <nav class="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
+  <nav class="mx-auto flex items-center justify-between px-6 py-4">
     <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">
       {SITE_TITLE}
     </a>
@@ -58,7 +58,7 @@ function isActive(href: string): boolean {
   </nav>
 
   <!-- Mobile nav -->
-  <div id="mobile-menu" class="hidden border-t border-gray-200 px-4 pb-4 sm:hidden dark:border-gray-800">
+  <div id="mobile-menu" class="hidden border-t border-gray-200 px-6 pb-4 sm:hidden dark:border-gray-800">
     {navItems.map((item) => (
       <a
         href={item.href}
