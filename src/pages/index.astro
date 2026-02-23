@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogCard from '@/components/BlogCard.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import { SITE_DESCRIPTION } from '@/lib/utils';
 
@@ -9,8 +8,7 @@ const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const featuredProjects = (await getCollection('projects'))
-  .filter((p) => p.data.featured)
+const products = (await getCollection('products'))
   .sort((a, b) => a.data.order - b.data.order);
 ---
 
@@ -62,27 +60,39 @@ const featuredProjects = (await getCollection('projects'))
     </div>
   </section>
 
-  <!-- Featured Projects -->
-  {featuredProjects.length > 0 && (
+  <!-- Products -->
+  {products.length > 0 && (
     <section class="mx-auto max-w-4xl px-4 pb-16">
       <div class="flex items-center justify-between">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Featured Projects</h2>
-        <a href="/projects" class="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Products</h2>
+        <a href="/products" class="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
           View all &rarr;
         </a>
       </div>
       <div class="mt-6 grid gap-6 sm:grid-cols-2">
-        {featuredProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            period={project.data.period}
-            techStack={project.data.techStack}
-            slug={project.id}
-            link={project.data.link}
-            github={project.data.github}
-            image={project.data.image}
-          />
+        {products.map((product) => (
+          <a
+            href={`/products/${product.id}`}
+            class="group rounded-xl border border-gray-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-surface-dark-secondary"
+          >
+            <div class="flex items-start gap-4">
+              <div class={`flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${product.data.iconGradient} text-lg font-bold text-white shadow`}>
+                {product.data.iconLabel}
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400 transition-colors">
+                  {product.data.title}
+                </h3>
+                <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                  {product.data.platform} &middot; {product.data.price}
+                  {product.data.rating && <> &middot; {product.data.rating}</>}
+                </p>
+                <p class="mt-2 text-sm text-gray-600 line-clamp-2 dark:text-gray-400">
+                  {product.data.description}
+                </p>
+              </div>
+            </div>
+          </a>
         ))}
       </div>
     </section>
