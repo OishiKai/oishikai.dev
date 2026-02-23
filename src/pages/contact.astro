@@ -1,0 +1,130 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact" description="お仕事のご依頼・お問い合わせ">
+  <div class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Contact</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-400">
+      スマホアプリ開発・Web開発のご依頼、その他お仕事に関するご相談はこちらからどうぞ。
+    </p>
+
+    <form
+      id="contact-form"
+      class="mt-8 space-y-4"
+    >
+      <div class="max-w-sm">
+        <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300">カテゴリ</label>
+        <select
+          id="category"
+          name="category"
+          class="mt-1 block w-full appearance-none rounded-lg border border-gray-300 bg-white bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%236b7280%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[position:right_1rem_center] bg-no-repeat py-2.5 pl-4 pr-10 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%239ca3af%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+        >
+          <option value="app-dev">アプリ開発依頼</option>
+          <option value="web-dev">Web開発依頼</option>
+          <option value="consulting">ご相談</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+      <div class="max-w-sm">
+        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">ニックネーム</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+        />
+      </div>
+      <div class="max-w-sm">
+        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">メールアドレス</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+        />
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">メッセージ</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-surface-dark dark:text-white dark:focus:border-primary-400 dark:focus:ring-primary-400"
+        ></textarea>
+      </div>
+      <div>
+        <button
+          type="submit"
+          id="submit-btn"
+          class="inline-flex items-center gap-2 rounded-lg bg-primary-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-70 dark:focus:ring-offset-surface-dark"
+        >
+          <svg id="submit-spinner" class="hidden h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span id="submit-text">送信する</span>
+        </button>
+      </div>
+      <p id="form-status" class="hidden text-sm"></p>
+    </form>
+  </div>
+</BaseLayout>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const status = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+    const submitSpinner = document.getElementById('submit-spinner');
+    const submitText = document.getElementById('submit-text');
+    if (!form || !status || !submitBtn || !submitSpinner || !submitText) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitSpinner.classList.remove('hidden');
+      submitText.textContent = '送信中...';
+      status.className = 'hidden';
+
+      const data = new FormData(form);
+      const payload = {
+        name: data.get('name'),
+        email: data.get('email'),
+        category: data.get('category'),
+        message: data.get('message'),
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await res.json();
+
+        if (res.ok) {
+          status.textContent = '送信しました。お問い合わせありがとうございます。';
+          status.className = 'text-sm text-green-600 dark:text-green-400';
+          form.reset();
+        } else {
+          status.textContent = result.error || '送信に失敗しました。';
+          status.className = 'text-sm text-red-600 dark:text-red-400';
+        }
+      } catch {
+        status.textContent = 'ネットワークエラーが発生しました。';
+        status.className = 'text-sm text-red-600 dark:text-red-400';
+      } finally {
+        submitBtn.disabled = false;
+        submitSpinner.classList.add('hidden');
+        submitText.textContent = '送信する';
+      }
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:after-swap', initContactForm);
+</script>

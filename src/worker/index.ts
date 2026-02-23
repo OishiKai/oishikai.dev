@@ -47,10 +47,13 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
       bug: '不具合報告',
       feature: '機能リクエスト',
       question: '質問',
+      'app-dev': 'アプリ開発依頼',
+      'web-dev': 'Web開発依頼',
+      consulting: 'ご相談',
       other: 'その他',
     };
     const categoryLabel = categoryLabels[body.category] || body.category;
-    const productLabel = body.product || '不明';
+    const productLabel = body.product || 'お問い合わせ';
     const destination = env.CONTACT_EMAIL;
 
     const msg = createMimeMessage();
