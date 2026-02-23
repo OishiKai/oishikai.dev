@@ -54,21 +54,19 @@ const { title, description, pubDate, updatedDate, heroImage, tags, headings } = 
       />
     )}
 
-    <!-- Body: TOC on left side, content centered -->
-    <div class="mx-auto max-w-7xl px-4">
-      <div class="relative xl:ml-72">
-        <div class="mx-auto max-w-3xl">
-          <!-- TOC: positioned outside the content area on the left -->
-          <aside class="hidden xl:block absolute right-full top-0 bottom-0 mr-8 w-56">
-            <div class="sticky top-24">
-              <TableOfContents headings={headings} />
-            </div>
-          </aside>
+    <!-- Body: TOC + content, centered as a unit -->
+    <div class="mx-auto flex max-w-[56rem] justify-center px-4 xl:max-w-none xl:px-8">
+      <!-- TOC -->
+      <aside class="hidden xl:block w-52 shrink-0 mr-6">
+        <div class="sticky top-24">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
 
-          <!-- Main content -->
-          <div class="prose max-w-none">
-            <slot />
-          </div>
+      <!-- Main content -->
+      <div class="min-w-0 max-w-3xl flex-1">
+        <div class="prose max-w-none">
+          <slot />
         </div>
       </div>
     </div>
