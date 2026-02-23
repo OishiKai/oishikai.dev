@@ -29,6 +29,7 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 
   try {
     const body = await request.json<{
+      product?: string;
       name: string;
       email: string;
       category: string;
@@ -49,15 +50,17 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
       other: 'その他',
     };
     const categoryLabel = categoryLabels[body.category] || body.category;
+    const productLabel = body.product || '不明';
     const destination = env.CONTACT_EMAIL;
 
     const msg = createMimeMessage();
     msg.setSender({ name: 'oishikai.dev Contact', addr: 'noreply@oishikai.dev' });
     msg.setRecipient(destination);
-    msg.setSubject(`[${categoryLabel}] ${body.name} さんからのお問い合わせ`);
+    msg.setSubject(`[${productLabel}] [${categoryLabel}] ${body.name} さんからのお問い合わせ`);
     msg.addMessage({
       contentType: 'text/plain',
       data: [
+        `プロダクト: ${productLabel}`,
         `名前: ${body.name}`,
         `メール: ${body.email}`,
         `カテゴリ: ${categoryLabel}`,

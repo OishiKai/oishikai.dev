@@ -30,4 +30,26 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, projects };
+const products = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/products' }),
+  schema: z.object({
+    title: z.string(),
+    shortName: z.string(),
+    description: z.string(),
+    platform: z.string(),
+    price: z.string(),
+    rating: z.string().optional(),
+    storeUrl: z.string().optional(),
+    techStack: z.array(z.string()).default([]),
+    iconLabel: z.string(),
+    iconGradient: z.string().default('from-primary-500 to-primary-700'),
+    milestones: z.array(z.object({
+      version: z.string(),
+      date: z.string(),
+      description: z.string(),
+    })).default([]),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { blog, projects, products };
